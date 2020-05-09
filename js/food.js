@@ -1,4 +1,5 @@
 var position = 'absolute'
+var element = []
 
 function Food(options){
   options = options || {};
@@ -9,8 +10,14 @@ function Food(options){
   this.color = '#fff';
 }
 
-Food.prototype.render = function(){
-  var map = document.getElementById("map");
+Food.prototype.render = function(map){
+  if(element != []){
+    for(var a = element.length-1;a>=0;a--){
+      element[a].parentNode.removeChild(element[a]);
+      element.pop()
+    }
+  }
+  this.randomXY();
   var div = document.createElement('div');
   div.style.position = position;
   div.style.left = this.x * this.width + 'px';
@@ -18,6 +25,7 @@ Food.prototype.render = function(){
   div.style.width = this.width + 'px';
   div.style.height = this.height + 'px';
   div.style.backgroundColor = this.color;
+  element.push(div);
   map.appendChild(div);
 }
 

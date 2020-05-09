@@ -16,7 +16,7 @@ function Snake(options){
   that = this;
 }
 
-Snake.prototype.render = function(){
+Snake.prototype.render = function(map){
   //移除上一次的所有元素
   if(elements != []){
     for(var a = elements.length-1;a>=0;a--){
@@ -24,8 +24,7 @@ Snake.prototype.render = function(){
       elements.pop()
     }
   }
-
-  var map = document.getElementById('map');
+  
   for(var i=0;i<this.snakeItem.length;i++){
     var div = document.createElement('div');
     div.style.position = position;
@@ -40,6 +39,7 @@ Snake.prototype.render = function(){
 }
 
 Snake.prototype.move = function(){
+  
   switch(this.direction){
     case "right":
       for(var i = this.snakeItem.length-1;i>=0;i--){
@@ -101,8 +101,15 @@ document.onkeydown = function(e){
   }
 }
 
-var snake = new Snake();
-var timer = setInterval(function(){
-  snake.move();
-  snake.render();
-}, 1000)
+
+//  测试代码
+// var snake = new Snake();
+// var timer = setInterval(function(){
+//   if(that.snakeItem[0].x <= 0 || that.snakeItem[0].x+1 >= document.getElementById('map').offsetWidth/that.width || that.snakeItem[0].y <= 0 || that.snakeItem[0].y+1 >= document.getElementById('map').offsetHeight/that.width){
+//     alert('ganme over');
+//     clearInterval(timer);
+//   }else{
+//     snake.move();
+//     snake.render();
+//   }
+// }, 150)

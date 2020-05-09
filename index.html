@@ -15,7 +15,30 @@
   <script src="js/food.js"></script>
   <script src="js/snake.js"></script>
   <script>
-    
+    var food = new Food();
+    var snake = new Snake();
+    //获取地图的div
+    var map = document.getElementById('map');
+
+    food.render(map);
+    var timer = setInterval(function(){
+      //判断是否出界
+      if(snake.snakeItem[0].x < 0 || snake.snakeItem[0].x >= map.offsetWidth/snake.width || snake.snakeItem[0].y < 0 || snake.snakeItem[0].y >= map.offsetHeight/snake.width){
+        alert('ganme over');
+        clearInterval(timer);
+      }else{
+        snake.move();
+        snake.render(map);
+        //判断蛇是否吃到食物
+        if(snake.snakeItem[0].x == food.x && snake.snakeItem[0].y == food.y){
+          snake.snakeItem.push({
+            x: 2 * snake.snakeItem[snake.snakeItem.length-1].x - snake.snakeItem[snake.snakeItem.length-2].x,
+            y: 2 * snake.snakeItem[snake.snakeItem.length-1].y - snake.snakeItem[snake.snakeItem.length-2].y
+          })
+          food.render(map);
+        }
+      }
+    }, 150)
   </script>
 </body>
 </html>
